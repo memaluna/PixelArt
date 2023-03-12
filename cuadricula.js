@@ -55,12 +55,25 @@ class Cuadricula {
   }
 }
 
+class Pincel {
+  constructor(color){
+    this.color = color;
+  }
+  setColor(color) {
+    this.color = color;
+  }
+  getColor() {
+    return this.color;
+  }
+}
+
 //hilo
-let cuadrosPorColumnaFila = 6;
+let cuadrosPorColumnaFila = 16;
 let tamanoCuadro = 50;
 let espaciado = 2;
+let pincel = new Pincel("black");
 
-let cuadricula = crearCuadricula(cuadrosPorColumnaFila, tamanoCuadro, espaciado, 'blue');
+let cuadricula = crearCuadricula(cuadrosPorColumnaFila, tamanoCuadro, espaciado, "grey");
 draw(cuadricula.getCuadros());
 
 
@@ -74,11 +87,22 @@ const getCursorPosition = (canvas, event) => {
     let idCuadro = (ValY * cuadrosPorColumnaFila) + ValX;
     console.log(idCuadro);
 
-    cuadricula.getCuadro(idCuadro).setColor("red");
+    cuadricula.getCuadro(idCuadro).setColor(pincel.getColor());
     draw(cuadricula.getCuadros());
   }
  
 };
+
+const colorPicker = document.getElementById("favcolor");
+
+colorPicker.addEventListener("input", watchColorPicker, false);
+colorPicker.addEventListener("change", watchColorPicker, false);
+
+function watchColorPicker(event) {
+  pincel.setColor(event.target.value);
+}
+
+
 
 canvas.addEventListener("mousedown", (e) => {
   getCursorPosition(canvas, e);
