@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>My first three.js app</title>
+		<style>
+			body { margin: 0;
+            height: 500px;}
+		</style>
+	</head>
+	<body>
+		<button id="dibujar">Dibujar!</button>
+		<script type="importmap">
+			{
+				"imports": {
+					"three": "/node_modules/three/src/three.js"
+				}
+			}
+		</script>
+		<script type="module">
+
+			class Cuadricula {
+			constructor(cuadros) {
+				this.cuadros = cuadros;
+			}
+			getCuadros() {
+				return this.cuadros;
+			}
+			addCuadro(cuadro) {
+				this.cuadros.push(cuadro);
+			}
+			getCuadro(id) {
+				return this.cuadros[id];
+			}
+			}
+
+			class Cuadro {
+				constructor(id, x1, x2, y1, y2, color, ancho) {
+					this.id = id;
+					this.x1 = x1;
+					this.x2 = x2;
+					this.y1 = y1;
+					this.y2 = y2;
+					this.color = color;
+					this.ancho = ancho;
+					this.largo = this.ancho;
+				}
+
+				getId() {
+					return this.id;
+				}
+				getX1() {
+					return this.x1;
+				}
+				getX2() {
+					return this.x2;
+				}
+				getY1() {
+					return this.y1;
+				}
+				getY2() {
+					return this.y2;
+				}
+				getColor() {
+					return this.color;
+				}
+				getAncho() {
+					return this.ancho;
+				}
+				getLargo() {
+					return this.largo;
+				}
+				setColor(color) {
+					this.color = color;
+				}
+				}
+
+            import * as THREE from 'three';
+			import { OrbitControls } from 'https://unpkg.com/three@0.138.3/examples/jsm/controls/OrbitControls.js';
+			const scene = new THREE.Scene();
+			
+			
+
+			const camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 200 );
+			//camera.position.set( 0, 2.5, 3.0 );
+			//camera.rotation.z = Math.PI * .5;
+
+			const renderer = new THREE.WebGLRenderer();
+			renderer.setSize( window.innerWidth, window.innerHeight );
+			document.body.appendChild( renderer.domElement );
+			renderer.render( scene, camera );
+
+			let pop = document.getElementById("dibujar"); // Encuentra el elemento "p" en el sitio
+			pop.addEventListener('click', dibujar);
+			//dibujar();
+
+			
+			function dibujar(){
+
+				let cuadricula = JSON.parse(localStorage.getItem("cuadricula"));
+				console.log(cuadricula);
+				const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+
+				
+				let nivel = Math.sqrt(cuadricula.length);
+				let x = Math.round(nivel/2), y = Math.round(nivel/2);
+				
+				//camera.position.x = nivel*2;
+				//camera.position.y = nivel*2;
+				for (let i = 0; i < cuadricula.length; i++) {
+					let color = cuadricula[i].color;
+					const material = new THREE.MeshBasicMaterial( { color: color } );
+					let cube = new THREE.Mesh( geometry, material );
+					if (color != "grey"){					
+					scene.add(cube);
+					}
+					cube.position.x = x;
+					cube.position.y = y;
+
+					if(x == nivel + nivel/2-1){
+						x=Math.round(nivel/2);
+						y= y - 1;
+					}else{
+						x = x + 1;
+					}
+					
+					} 
+
+				//const cube = new THREE.Mesh( geometry, material );
+				//const cube2 = new THREE.Mesh( geometry, material );
+				//scene.add( cube, cube2 );
+
+				camera.position.z = 5;
+				//cube2.position.x = 1.1;
+				//cube2.position.y = 1.1;
+
+				// Controls
+
+				const controls = new OrbitControls( camera, renderer.domElement );
+				controls.addEventListener( 'change', render);
+				controls.minDistance = 30;
+				controls.maxDistance = 100;
+				controls.enablePan = true;
+				//camera.position.set( 0, 10, 50 );
+				controls.update();
+				render();
+			}
+			function render() {
+				renderer.render( scene, camera );
+			}	
+
+			
+		</script>
+	</body>
+</html>
