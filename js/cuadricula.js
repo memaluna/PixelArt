@@ -67,9 +67,22 @@ class Pincel {
   }
 }
 
+//responsive canvas
+var canvas = document.getElementById('canvas');
+var heightRatio = 1.5;
+canvas.height = canvas.width * heightRatio;
+
 //hilo
-let cuadrosPorColumnaFila = 16;
-let tamanoCuadro = 50;
+let tamanoCuadro = 0;
+let cuadrosPorColumnaFila = 32;
+ if (cuadrosPorColumnaFila == 16){
+  tamanoCuadro = 64;
+}else if(cuadrosPorColumnaFila == 32){
+  tamanoCuadro = 32;
+}else if(cuadrosPorColumnaFila == 64){
+  tamanoCuadro = 16;
+} 
+
 let espaciado = 2;
 let pincel = new Pincel("black");
 
@@ -79,8 +92,6 @@ draw(cuadricula.getCuadros());
 let p = document.getElementById("actualizarDiseno"); // Encuentra el elemento "p" en el sitio
 p.addEventListener('click', storageCuadricula, false);
 p.cuadricula = cuadricula.getCuadros();
-
-
 
 
 const getCursorPosition = (canvas, event) => {
