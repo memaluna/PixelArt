@@ -74,7 +74,7 @@ canvas.height = canvas.width * heightRatio;
 
 //hilo
 let tamanoCuadro = 0;
-let cuadrosPorColumnaFila = 32;
+let cuadrosPorColumnaFila = 64;
  if (cuadrosPorColumnaFila == 16){
   tamanoCuadro = 64;
 }else if(cuadrosPorColumnaFila == 32){
@@ -116,8 +116,6 @@ colorPicker.addEventListener("change", watchColorPicker, false);
 function watchColorPicker(event) {
   pincel.setColor(event.target.value);
 }
-
-
 
 canvas.addEventListener("mousedown", (e) => {
   getCursorPosition(canvas, e);
