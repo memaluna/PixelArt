@@ -74,7 +74,7 @@ canvas.height = canvas.width * heightRatio;
 
 //hilo
 let tamanoCuadro = 0;
-let cuadrosPorColumnaFila = 64;
+let cuadrosPorColumnaFila = 32;
  if (cuadrosPorColumnaFila == 16){
   tamanoCuadro = 64;
 }else if(cuadrosPorColumnaFila == 32){
