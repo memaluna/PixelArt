@@ -67,14 +67,43 @@ class Pincel {
   }
 }
 
+//ColorPicker
+Coloris({
+  themeMode: 'dark',
+  alpha: false,
+  theme: 'large',
+  swatches: [
+    'red',
+    'blue',
+    'green',
+    'yellow',
+    'black',
+    'orange',
+    'navy',
+    'white',
+    'purple',
+    'Brown',
+    'pink'
+  ]
+});
+
 //responsive canvas
 var canvas = document.getElementById('canvas');
 var heightRatio = 1.5;
 canvas.height = canvas.width * heightRatio;
 
+//setDark
+var n = document.getElementById('cuerpo');
+var dark = localStorage.getItem("dark");
+if(dark === "true"){
+  n.classList.add("lights-off");
+}else{
+  n.classList.remove("lights-off");
+}
+
 //hilo
 let tamanoCuadro = 0;
-let cuadrosPorColumnaFila = 32;
+let cuadrosPorColumnaFila = localStorage.getItem("cuadrados");
  if (cuadrosPorColumnaFila == 16){
   tamanoCuadro = 64;
 }else if(cuadrosPorColumnaFila == 32){

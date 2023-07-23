@@ -35,7 +35,7 @@
 	                        <p class="hero-paragraph">Diseña en pixel art, mira tu diseño en 3D y utilízalo como Live Wallpaper en tu dispositivo Android!</p>
                             <div class="cfg-cuadricula">
                                 <label for="pixeles">Elige cantidad de pixeles:</label>
-                                <select name="pixeles" id="cars">
+                                <select name="pixeles" id="cuadrados">
                                 <option value="16">16x16</option>
                                 <option value="32">32x32 (no aplicada en app)</option>
                                 <option value="64">64x64 (no aplicada en app)</option>
@@ -43,7 +43,7 @@
                             </div>
                             <br>
 	                        <div class="hero-cta">
-								<a class="button button-primary" href="editor.html">Crear diseño!</a>
+								<a class="button button-primary" href="editor.html" onclick="localStorage.setItem('cuadrados', getElementById('cuadrados').value)">Crear diseño!</a>
 								<div class="lights-toggle">
 									<input id="lights-toggle" type="checkbox" name="lights-toggle" class="switch" checked="checked">
 									<label for="lights-toggle" class="text-xs"><span>Modo <span class="label-text">oscuro</span></span></label>
