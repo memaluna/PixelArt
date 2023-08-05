@@ -1,24 +1,42 @@
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-        <title>Ejemplo de estilos CSS en un archivo externo</title>
-        <link rel="stylesheet" type="text/css" href="/css/estilo.css" media="screen" />   
-        <link rel="stylesheet" type="text/css" href="dist/css/style.css" media="screen" />
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css"/>
-        <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
-    </head>
-    <body id="cuerpo" class="is-boxed has-animations">
-        <canvas id="canvas" width="500" height="500">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Ejemplo de estilos CSS en un archivo externo</title>
+
+    <link rel="stylesheet" type="text/css" href="dist/css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="/css/estilo.css" media="screen" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/mdbassit/Coloris@latest/dist/coloris.min.js"></script>
+</head>
+
+<body id="cuerpo" class="is-boxed has-animations">
+    <div id="magazine">
+        <canvas id="canvas">
             Tu navegador no admite el elemento &lt;canvas&gt;.
         </canvas>
-        <br>
-        <input type="text" id="favcolor" name="favcolor" value="#ff0000" data-coloris>
-        <br>
-        <button class="button button-primary" id="actualizarDiseno">Actualizar Diseño!</button>
-        <div id="marco3d"></div>
-        <button class="button button-primary" id="grabarArchivo">Grabar Diseño!</button>
+            <span id="edicion">Elementos de edición
+            <div id="edicion">
+                <div id="elementoEdicion">Pincel
+                    <input type="text" id="favcolor" name="favcolor" value="#ff0000" data-coloris>
+                    <br>
+                    Colores Usados
+                    <br>
+                    
+                </div>
+                <div id="elementoEdicion">Borrador
+                    <img id="borrador" src="src\images\borrador.png" width="70" height="70"/>
+                </div>
+            </div>
+        </span>
+    </div>
+    <br>
+    <button class="button button-primary" id="actualizarDiseno">Actualizar Diseño!</button>
+    <div id="marco3d" class="is-boxed has-animations"></div>
+    <button class="button button-primary" id="grabarArchivo">Grabar Diseño!</button>
 
-        <script src="js/cuadricula.js"></script>
-        <script src="js/3d.js"></script>
-    </body>
+    <script src="js/cuadricula.js"></script>
+    <script src="js/3d.js"></script>
+</body>
+
 </html>

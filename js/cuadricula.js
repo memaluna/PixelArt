@@ -115,7 +115,7 @@ let cuadrosPorColumnaFila = localStorage.getItem("cuadrados");
 let espaciado = 2;
 let pincel = new Pincel("black");
 
-let cuadricula = crearCuadricula(cuadrosPorColumnaFila, tamanoCuadro, espaciado, "grey");
+let cuadricula = crearCuadricula(cuadrosPorColumnaFila, tamanoCuadro, espaciado, "#e9e9e9");
 draw(cuadricula.getCuadros());
 
 let p = document.getElementById("actualizarDiseno"); // Encuentra el elemento "p" en el sitio
@@ -138,6 +138,11 @@ const getCursorPosition = (canvas, event) => {
 };
 
 const colorPicker = document.getElementById("favcolor");
+const borrador = document.getElementById("borrador");
+
+borrador.addEventListener("click", function() {
+  pincel.setColor("#e9e9e9");
+});
 
 colorPicker.addEventListener("input", watchColorPicker, false);
 colorPicker.addEventListener("change", watchColorPicker, false);

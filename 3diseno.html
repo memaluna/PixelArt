@@ -2,14 +2,21 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>My first three.js app</title>
+		<title></title>
 		<style>
 			body { margin: 0;
             height: 500px;}
 		</style>
+		<link rel="stylesheet" type="text/css" href="dist/css/style.css" media="screen" />
 	</head>
-	<body>
-		<button id="dibujar">Dibujar!</button>
+	<body id="cuerpo3d" class="is-boxed has-animations" onload="var n = document.getElementById('cuerpo3d');
+								var dark = localStorage.getItem('dark');
+								if(dark === 'true'){
+								n.classList.add('lights-off');
+								}else{
+								n.classList.remove('lights-off');
+								}" >
+		<button class="button button-primary" id="dibujar">Dibujar!</button>
 		<script type="importmap">
 			{
 				"imports": {
@@ -84,7 +91,7 @@
 			//camera.rotation.z = Math.PI * .5;
 
 			const renderer = new THREE.WebGLRenderer();
-			renderer.setSize( window.innerWidth, window.innerHeight );
+			renderer.setSize( window.innerWidth- 75, window.innerHeight -75 );
 			document.body.appendChild( renderer.domElement );
 			//renderer.render( scene, camera );
 
@@ -117,7 +124,7 @@
 					const material = new THREE.MeshBasicMaterial( { color: color } );
 					let cube = new THREE.Mesh( geometry, material );
 					cube.castShadow = true;
-					if (color != "grey"){					
+					if (color != "#e9e9e9"){					
 					scene.add(cube);
 					}
 					cube.position.x = x - nivel;
@@ -164,8 +171,6 @@
  			function render() {
 				renderer.render( scene, camera );
 			}	 
-
-			
 		</script>
 	</body>
 </html>
