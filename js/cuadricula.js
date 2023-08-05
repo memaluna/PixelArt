@@ -112,6 +112,8 @@ if (cuadrosPorColumnaFila == 16) {
   tamanoCuadro = 16;
 }
 
+
+
 let espaciado = 2;
 let pincel = new Pincel("black");
 
@@ -149,6 +151,8 @@ const getCursorPosition = (canvas, event) => {
 const colorPicker = document.getElementById("favcolor");
 const borrador = document.getElementById("borrador");
 const divColorUsado = document.getElementById("coloresUsados");
+let colorUsado = document.getElementById("colorDiv");
+
 
 let coloresUsados = [];
 let currentIndex = 0;
@@ -156,6 +160,10 @@ let currentIndex = 0;
 borrador.addEventListener("click", function () {
   pincel.setColor("#e9e9e9");
 });
+
+
+
+
 
 colorPicker.addEventListener("input", watchColorPicker, false);
 colorPicker.addEventListener("change", watchColorPicker, false);
@@ -239,6 +247,8 @@ function displayColorGrid(colors) {
     const colorBox = document.createElement("div");
     colorBox.classList.add("color-box");
     colorBox.style.backgroundColor = color;
+    colorBox.id = "colorDiv";
+    colorBox.onclick = cambiarColor;
     divColorUsado.appendChild(colorBox);
   });
 }
@@ -254,4 +264,24 @@ function guardarColorUsado(value) {
   console.log(coloresUsados);
   displayColorGrid(coloresUsados);
   // currentIndex indica la posición donde se almacenará el siguiente valor
+}
+
+function cambiarColor(event){
+  const divElement = event.target;
+  const computedStyle = getComputedStyle(divElement);
+  const color = rgbToHex(computedStyle.backgroundColor);
+  console.log(color);
+  pincel.setColor(color);
+}
+
+function rgbToHex(rgbColor) {
+  const rgbValues = rgbColor.match(/\d+/g);
+  if (rgbValues && rgbValues.length === 3) {
+      const r = parseInt(rgbValues[0]);
+      const g = parseInt(rgbValues[1]);
+      const b = parseInt(rgbValues[2]);
+
+      return "#" + ((r << 16) | (g << 8) | b).toString(16).padStart(6, '0');
+  }
+  return null;
 }
