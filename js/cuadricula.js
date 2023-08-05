@@ -94,11 +94,14 @@ canvas.height = canvas.width * heightRatio;
 
 //setDark
 var n = document.getElementById("cuerpo");
+var m = document.getElementById("marco3d");
 var dark = localStorage.getItem("dark");
 if (dark === "true") {
   n.classList.add("lights-off");
+  m.classList.add("lights-off");
 } else {
   n.classList.remove("lights-off");
+  m.classList.remove("lights-off");
 }
 
 //hilo

@@ -32,7 +32,8 @@ body {
   align-items:start;
   justify-content:center; 
   background-color: rgba(110, 110, 110, 0.151);
-  margin: 5em;
+  margin: 50px;
+  margin-bottom: 0px;
   border-radius: 0.5em;
 }
 
@@ -52,4 +53,10 @@ body {
   height: 30px;
   display: inline-block;
   margin: 5px;
+}
+
+#actualizarDiseno {
+  position: relative;
+  left: 50%;
+  margin-bottom: 30px;
 }
