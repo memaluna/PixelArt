@@ -231,21 +231,6 @@ function storageCuadricula(cuadricula) {
   }
 }
 
-function guardarColorUsado1(color) {
-  if (!coloresUsados.includes(color)) {
-    coloresUsados.push(color);
-  } else {
-    // Si ya existe, eliminar el valor anterior
-    coloresUsados = coloresUsados.filter((item) => item !== color);
-    // Agregar el nuevo valor al final del array
-    coloresUsados.push(color);
-  }
-  if (coloresUsados.length > 5) {
-    coloresUsados.shift();
-  }
-  console.log(coloresUsados);
-}
-
 function displayColorGrid(colors) {
   while (divColorUsado.firstChild) {
     divColorUsado.removeChild(divColorUsado.firstChild);
@@ -256,30 +241,6 @@ function displayColorGrid(colors) {
     colorBox.style.backgroundColor = color;
     divColorUsado.appendChild(colorBox);
   });
-}
-
-function guardarColorUsado2(value) {
-  // Verificar si el valor ya existe en el array
-  const index = coloresUsados.indexOf(value);
-  if (index === -1) {
-      // Si no existe, agregarlo al final del array
-      coloresUsados.push(value);
-  } else {
-      // Si ya existe, eliminar el valor anterior
-      //coloresUsados.splice(index, 1);
-      coloresUsados[replaceIndex] = value;
-      // Agregar el nuevo valor al final del array
-      //coloresUsados.push(value);
-      replaceIndex = (replaceIndex + 1) % 5;
-  }
-
-  // Si el array tiene más de 5 elementos, eliminar el primero
-  if (coloresUsados.length >= 5) {
-    //coloresUsados.shift();
-    replaceIndex = coloresUsados.length % 5;
-  }
-  console.log(coloresUsados);
-  displayColorGrid(coloresUsados);
 }
 
 function guardarColorUsado(value) {
