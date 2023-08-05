@@ -56,7 +56,7 @@ class Cuadricula {
 }
 
 class Pincel {
-  constructor(color){
+  constructor(color) {
     this.color = color;
   }
   setColor(color) {
@@ -69,78 +69,91 @@ class Pincel {
 
 //ColorPicker
 Coloris({
-  themeMode: 'dark',
+  themeMode: "dark",
   alpha: false,
-  theme: 'large',
+  theme: "large",
   swatches: [
-    'red',
-    'blue',
-    'green',
-    'yellow',
-    'black',
-    'orange',
-    'navy',
-    'white',
-    'purple',
-    'Brown',
-    'pink'
-  ]
+    "red",
+    "blue",
+    "green",
+    "yellow",
+    "black",
+    "orange",
+    "navy",
+    "white",
+    "purple",
+    "Brown",
+    "pink",
+  ],
 });
 
 //responsive canvas
-var canvas = document.getElementById('canvas');
+var canvas = document.getElementById("canvas");
 var heightRatio = 1.5;
 canvas.height = canvas.width * heightRatio;
 
 //setDark
-var n = document.getElementById('cuerpo');
+var n = document.getElementById("cuerpo");
 var dark = localStorage.getItem("dark");
-if(dark === "true"){
+if (dark === "true") {
   n.classList.add("lights-off");
-}else{
+} else {
   n.classList.remove("lights-off");
 }
 
 //hilo
 let tamanoCuadro = 0;
 let cuadrosPorColumnaFila = localStorage.getItem("cuadrados");
- if (cuadrosPorColumnaFila == 16){
+if (cuadrosPorColumnaFila == 16) {
   tamanoCuadro = 64;
-}else if(cuadrosPorColumnaFila == 32){
+} else if (cuadrosPorColumnaFila == 32) {
   tamanoCuadro = 32;
-}else if(cuadrosPorColumnaFila == 64){
+} else if (cuadrosPorColumnaFila == 64) {
   tamanoCuadro = 16;
-} 
+}
 
 let espaciado = 2;
 let pincel = new Pincel("black");
 
-let cuadricula = crearCuadricula(cuadrosPorColumnaFila, tamanoCuadro, espaciado, "#e9e9e9");
+let cuadricula = crearCuadricula(
+  cuadrosPorColumnaFila,
+  tamanoCuadro,
+  espaciado,
+  "#e9e9e9"
+);
 draw(cuadricula.getCuadros());
 
 let p = document.getElementById("actualizarDiseno"); // Encuentra el elemento "p" en el sitio
-p.addEventListener('click', storageCuadricula, false);
+p.addEventListener("click", storageCuadricula, false);
 p.cuadricula = cuadricula.getCuadros();
-
 
 const getCursorPosition = (canvas, event) => {
   const x = event.offsetX;
   const y = event.offsetY;
   console.log(x, y);
-  if(x < ((tamanoCuadro + espaciado)*cuadrosPorColumnaFila) && x > 0 && y < ((tamanoCuadro + espaciado)*cuadrosPorColumnaFila) && y > 0){
-    let ValX = Math.floor(x/(tamanoCuadro+espaciado));
-    let ValY = Math.floor(y/(tamanoCuadro+espaciado));
-    let idCuadro = (ValY * cuadrosPorColumnaFila) + ValX;
+  if (
+    x < (tamanoCuadro + espaciado) * cuadrosPorColumnaFila &&
+    x > 0 &&
+    y < (tamanoCuadro + espaciado) * cuadrosPorColumnaFila &&
+    y > 0
+  ) {
+    let ValX = Math.floor(x / (tamanoCuadro + espaciado));
+    let ValY = Math.floor(y / (tamanoCuadro + espaciado));
+    let idCuadro = ValY * cuadrosPorColumnaFila + ValX;
     cuadricula.getCuadro(idCuadro).setColor(pincel.getColor());
     draw(cuadricula.getCuadros());
+    guardarColorUsado(pincel.getColor());
   }
- 
 };
 
 const colorPicker = document.getElementById("favcolor");
 const borrador = document.getElementById("borrador");
+const divColorUsado = document.getElementById("coloresUsados");
 
-borrador.addEventListener("click", function() {
+let coloresUsados = [];
+let currentIndex = 0;
+
+borrador.addEventListener("click", function () {
   pincel.setColor("#e9e9e9");
 });
 
@@ -154,7 +167,6 @@ function watchColorPicker(event) {
 canvas.addEventListener("mousedown", (e) => {
   getCursorPosition(canvas, e);
 });
-
 
 //Funciones
 function crearCuadricula(columnasFilas, tamanoCuadrado, espaciado, color) {
@@ -171,7 +183,7 @@ function crearCuadricula(columnasFilas, tamanoCuadrado, espaciado, color) {
   for (let i = 0; i < cantidadCuadrados; i++) {
     let cuadradoNuevo = new Cuadro(i, x1, x2, y1, y2, color, tamanoCuadrado);
     if (x1 >= tamanoTotal * columnasFilas - tamanoTotal) {
-      x1 = espaciado/2;
+      x1 = espaciado / 2;
       x2 = x1 + tamanoCuadrado;
       yA = yA + tamanoTotal;
       y1 = yA;
@@ -182,7 +194,7 @@ function crearCuadricula(columnasFilas, tamanoCuadrado, espaciado, color) {
       y1 = yA;
       y2 = yA + tamanoCuadrado;
     }
-    cuadricula1.addCuadro(cuadradoNuevo);    
+    cuadricula1.addCuadro(cuadradoNuevo);
   }
   return cuadricula1;
 }
@@ -191,8 +203,8 @@ function draw(cuadricula) {
   const canvas = document.getElementById("canvas");
   if (canvas.getContext) {
     const ctx = canvas.getContext("2d");
-    ctx.canvas.width  = (tamanoCuadro + espaciado)*cuadrosPorColumnaFila;
-    ctx.canvas.height = (tamanoCuadro + espaciado)*cuadrosPorColumnaFila;
+    ctx.canvas.width = (tamanoCuadro + espaciado) * cuadrosPorColumnaFila;
+    ctx.canvas.height = (tamanoCuadro + espaciado) * cuadrosPorColumnaFila;
     for (let i = 0; i < cuadricula.length; i++) {
       ctx.fillRect(
         cuadricula[i].getX1(),
@@ -205,13 +217,80 @@ function draw(cuadricula) {
   }
 }
 
-function storageCuadricula(cuadricula){
-  if (typeof(Storage) !== "undefined") {
+function storageCuadricula(cuadricula) {
+  if (typeof Storage !== "undefined") {
     // Store
-    localStorage.setItem("cuadricula", JSON.stringify(cuadricula.currentTarget.cuadricula));
+    localStorage.setItem(
+      "cuadricula",
+      JSON.stringify(cuadricula.currentTarget.cuadricula)
+    );
     let stree = new Cuadricula(JSON.parse(localStorage.getItem("cuadricula")));
     console.log(stree);
   } else {
     console.log("Sorry, your browser does not support Web Storage...");
   }
+}
+
+function guardarColorUsado1(color) {
+  if (!coloresUsados.includes(color)) {
+    coloresUsados.push(color);
+  } else {
+    // Si ya existe, eliminar el valor anterior
+    coloresUsados = coloresUsados.filter((item) => item !== color);
+    // Agregar el nuevo valor al final del array
+    coloresUsados.push(color);
+  }
+  if (coloresUsados.length > 5) {
+    coloresUsados.shift();
+  }
+  console.log(coloresUsados);
+}
+
+function displayColorGrid(colors) {
+  while (divColorUsado.firstChild) {
+    divColorUsado.removeChild(divColorUsado.firstChild);
+  }
+  colors.forEach((color) => {
+    const colorBox = document.createElement("div");
+    colorBox.classList.add("color-box");
+    colorBox.style.backgroundColor = color;
+    divColorUsado.appendChild(colorBox);
+  });
+}
+
+function guardarColorUsado2(value) {
+  // Verificar si el valor ya existe en el array
+  const index = coloresUsados.indexOf(value);
+  if (index === -1) {
+      // Si no existe, agregarlo al final del array
+      coloresUsados.push(value);
+  } else {
+      // Si ya existe, eliminar el valor anterior
+      //coloresUsados.splice(index, 1);
+      coloresUsados[replaceIndex] = value;
+      // Agregar el nuevo valor al final del array
+      //coloresUsados.push(value);
+      replaceIndex = (replaceIndex + 1) % 5;
+  }
+
+  // Si el array tiene más de 5 elementos, eliminar el primero
+  if (coloresUsados.length >= 5) {
+    //coloresUsados.shift();
+    replaceIndex = coloresUsados.length % 5;
+  }
+  console.log(coloresUsados);
+  displayColorGrid(coloresUsados);
+}
+
+function guardarColorUsado(value) {
+  // Verificar si el valor ya existe en el array
+  const index = coloresUsados.indexOf(value);
+  if (index === -1) {
+      // Si no existe, reemplazar en la posición actual (currentIndex)
+      coloresUsados[currentIndex] = value;
+      currentIndex = (currentIndex + 1) % 5; // Avanzar el índice circularmente
+  }
+  console.log(coloresUsados);
+  displayColorGrid(coloresUsados);
+  // currentIndex indica la posición donde se almacenará el siguiente valor
 }

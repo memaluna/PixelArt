@@ -46,3 +46,10 @@ body {
 #borrador:hover {
   background-color: #c9c8c8;
 }
+
+.color-box {
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  margin: 5px;
+}
